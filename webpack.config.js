@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const srcPath = path.join(__dirname, 'src');
 const autoprefixer = require('autoprefixer');
-const iconsPath = path.join(srcPath,'assets', 'icons');
+const iconsPath = path.join(srcPath, 'icons');
 
 const cssLoaders = [
   {
@@ -49,6 +49,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
     historyApiFallback: true,
@@ -70,10 +71,10 @@ module.exports = {
             options: { presets: ['es2015', 'react'] }
         },
         {
-          test: /\.(png|jpg)$/i,
+          test: /\.(png|jpg|svg)$/i,
             loader: 'url-loader',
             options: {
-              name: 'assets/images/[name].[ext]',
+              name: 'images/[name].[ext]',
               limit: 25000
             }
         },

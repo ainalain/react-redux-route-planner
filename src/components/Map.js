@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
 import { apiAddress } from '../../config/apiAddress';
+import Marker from './Marker';
 import styles from './Map.scss';
 
 
@@ -11,6 +12,10 @@ export class Map extends React.Component {
     super(props);
 
     this.map = null;
+    this.state = {
+      markers: [],
+      limitExceed: false
+    };
   }
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
@@ -20,13 +25,16 @@ export class Map extends React.Component {
           center: this.props.center,
           zoom: this.props.zoom
         });
-        this.initMarker();
+        this.map.addListener('click', this.populateMarkers.bind(this));
+        this.setCenter();
       }
-      else this.props.onError()
+      else  {
+        this.props.onError();
+      }
     }
   }
 
-  initMarker() {
+  setCenter() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const pos = {
@@ -34,12 +42,6 @@ export class Map extends React.Component {
           lng: position.coords.longitude
         };
         this.map.setCenter(pos);
-
-        const marker = new google.maps.Marker({
-          position: pos,
-          map: this.map,
-          title: 'Hello World!'
-        });
       }, () => {
         console.log('navigator disabled');
       });
@@ -47,6 +49,31 @@ export class Map extends React.Component {
       // Browser doesn't support Geolocation
       console.log('navigator disabled');
     }
+  }
+
+  populateMarkers(event) {
+    let lat = event.latLng.lat(),
+      lng = event.latLng.lng(),
+      id = +new Date()/1000;
+    if (this.state.markers.length < 24) {
+      let arr = [{ lat, lng, id }, ...this.state.markers];
+      this.setState({ markers: arr });
+    } else {
+      this.warnAboutMarkersLimit();
+    }
+  }
+
+  renderMarkers() {
+    if (this.map && this.state.markers.length) {
+      return this.state.markers.map(marker => (
+        <Marker position={marker} key={marker.id}
+          map={this.map} google={google} />)
+      );
+    }
+  }
+
+  warnAboutMarkersLimit() {
+    this.setState({ limitExceed: true });
   }
 
   renderLoading() {
@@ -66,16 +93,17 @@ export class Map extends React.Component {
       </header>
       <div className={styles.mapSection}>
         <div className={styles.map}
-          ref={ node => { this.mapNode = node; }}>
+          ref={node => { this.mapNode = node; }}>
+          {this.renderMarkers()}
         </div>
         {this.renderLoading()}
         <div className={styles.history}
-        ref={ node => { this.history = node; }}>
+        ref={node => { this.history = node; }}>
         History
         </div>
       </div>
      </section>
-   )
+   );
  }
 }
 
