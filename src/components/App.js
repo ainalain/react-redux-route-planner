@@ -1,10 +1,13 @@
 import React from 'react';
+import Header from './common/Header';
+import AsynMap from './Map';
 import styles from './layout.scss';
 
 const App = () => {
   return (
-    <div>
-      App component goes here.
+    <div className={styles.app}>
+      <Header />
+      <AsynMap />
     </div>
   );
 };
