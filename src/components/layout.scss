@@ -1,4 +1,5 @@
 @import 'reset-css/reset.css';
+@import './mediaQueries.scss';
 
 * {
   box-sizing: border-box;
@@ -12,6 +13,7 @@
 html, body{
   @include size100();
   margin: 0;
+  padding: 0;
 }
 
 :global {
@@ -19,6 +21,11 @@ html, body{
     @include size100();
     font-size: 1.4rem;
   }
+}
+
+.app {
+  @include size100();
+  padding: 30px 20px;
 }
 
 body {
