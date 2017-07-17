@@ -1,0 +1,24 @@
+{
+  "name": "react-redux-route-planner",
+  "version": "1.0.0",
+  "description": "A route planning react app that calculates an optimal itinerary with the help of Google Maps API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ainalain/react-redux-route-planner.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Google Maps"
+  ],
+  "author": "Elena Sufieva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ainalain/react-redux-route-planner/issues"
+  },
+  "homepage": "https://github.com/ainalain/react-redux-route-planner#readme"
+}
