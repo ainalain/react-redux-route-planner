@@ -16,3 +16,16 @@ export const formatRequest = (markers) => {
   request.waypoints = waypts;
   return request;
 };
+
+export const formatHistoryItems = (routes) => {
+  let items = [];
+  routes.map(route => {
+    let legs = route.routes[0].legs,
+      length = legs.length,
+      startPoint = legs[0].start_address,
+      endPoint = legs[length - 1].end_address,
+      waypoints = length - 3;
+      items.push({ startPoint, endPoint, waypoints });
+  });
+  return items;
+};

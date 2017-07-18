@@ -10,9 +10,7 @@ class Marker extends React.Component {
 
   componentWillReceiveProps({ clear }) {
     if (clear) {
-      console.log('marker: ', this.marker);
       if (this.marker) {
-        console.log('set map to null');
         this.marker.setMap(null);
         this.marker = null;
       }

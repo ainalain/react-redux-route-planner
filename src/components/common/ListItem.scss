@@ -1,0 +1,20 @@
+@import '../layout.scss';
+
+.item {
+  padding: 10px 0;
+  border-top: 1px solid #939393;
+
+  cursor: pointer;
+
+  .start, .end, .waypoints {
+    padding: 5px 0;
+  }
+
+  .note {
+    font-weight: 600;
+  }
+}
+
+.item:last-of-type {
+  border-bottom: 1px solid #939393;
+}

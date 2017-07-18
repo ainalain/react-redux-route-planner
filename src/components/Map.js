@@ -5,10 +5,11 @@ import scriptLoader from 'react-async-script-loader';
 import { apiAddress } from '../../config/apiAddress';
 import { getRoute } from '../actions/routeActions';
 import { clearMap } from '../actions/mapActions';
-import { formatRequest } from '../helpers/formatRequest';
+import { formatRequest, formatHistoryItems } from '../helpers/formatData';
 import getUserPosition from '../helpers/geolocation';
 import Marker from './Marker';
 import styles from './Map.scss';
+import ListItem from './common/ListItem';
 
 
 export class Map extends React.Component {
@@ -26,6 +27,7 @@ export class Map extends React.Component {
 
     this.calculateRoute = this.calculateRoute.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
+    this.updateRoute = this.updateRoute.bind(this);
   }
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute }) {
@@ -99,6 +101,12 @@ export class Map extends React.Component {
     }
   }
 
+  updateRoute(event) {
+    let currentIndex = event.currentTarget.dataset.index;
+    let newRoute = this.state.savedRoutes[currentIndex];
+    this.setState({ currentRoute: newRoute }, this.drawRoute);
+  }
+
   updateHistory() {
     if (Object.keys(this.state.currentRoute).length) {
       let arr = [...this.state.savedRoutes, this.state.currentRoute];
@@ -111,10 +119,24 @@ export class Map extends React.Component {
     }
   }
 
+  renderHistory() {
+    if (this.state.savedRoutes.length) {
+      let items = formatHistoryItems(this.state.savedRoutes);
+      return (
+        <ul className={styles.list}>
+          {items.map((item, index) =>
+            <ListItem key={index} index={index}
+            item={item} onClick={this.updateRoute} />
+          )}
+        </ul>
+      );
+    }
+  }
+
   renderLoading() {
-    let loadinClass = this.state.ajaxCallInProgress ? styles.loading :
+    let loadingClass = this.state.ajaxCallInProgress ? styles.loading :
       `${styles.loading} ${styles.hidden}`;
-      return (<div className={`${loadinClass}`}>
+      return (<div className={`${loadingClass}`}>
         <img className={styles.image}
           src={'../icons/loading.gif'}
           alt={'loading spinner'} />
@@ -148,7 +170,8 @@ export class Map extends React.Component {
         </details>
         <div className={styles.history}
           ref={node => { this.history = node; }}>
-        History
+        <div className={styles.title}>History</div>
+        {this.renderHistory()}
         </div>
       </div>
      </section>
