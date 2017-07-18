@@ -1,5 +1,33 @@
-# react-redux-route-planner
+# React-redux-route-planner
+*This is a homework test task, in progress*
 
-Use Google Maps JavaScript API to create an app which will allow marking few places and when clicking the proper button it will suggest the most efficient (by time) way to visit all these places. 
-Application should have a place with history of that calculations. 
-After clicking on one item in history it should show calculation on the map.
+A react-redux app that calculates the best route (by time) for selected places.
+It uses Google Maps Javascript API.
+The result of the calculation is represented by a route drawn on the map and by a panel with saved history.
+When someone clicks on any item of this history list, the map will be updated.
+
+## Technologies used
+
+**Javascript**: ES2015
+
+**React app:** React, Redux, Redux Thunk
+
+**AI services:** Google Maps Javascript API, Google Directions Service
+
+**Code bundling:** Webpack 2
+
+**Styles:** Css Modules, (SCSS)Sass
+
+## Unit tests libraries
+
+Mocha, Enzyme, Sinon.js, Expect
+
+## Development server
+
+Run `npm install` and `npm start` for a dev server.
+Navigate to http://localhost:8080/
+The app will automatically reload if you change any of the source files.
+
+## Testing
+
+Run `npm test` to execute the unit tests.
