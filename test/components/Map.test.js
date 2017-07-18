@@ -20,9 +20,9 @@ describe('Map with shallow rendering', () => {
     expect(component.find('header').length).toBe(1);
   });
 
-  it('renders a button', () => {
+  it('renders 2 buttons', () => {
     const component = setup();
-    expect(component.find('button').length).toBe(1);
+    expect(component.find('button').length).toBe(2);
   });
   it('renders a button', () => {
     const spy = sinon.spy(Map.prototype, 'componentWillReceiveProps');

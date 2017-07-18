@@ -1,4 +1,5 @@
 const mockAddListener = () => { console.log('fake add listener'); };
+
 export const mockGoogleAPI = () => {
   return {
     maps: {
@@ -9,6 +10,13 @@ export const mockGoogleAPI = () => {
       },
       Marker: function() {
         return {};
+      },
+      DirectionsService: function() {
+        return {
+          route: function() {
+            return {};
+          }
+        };
       }
     }
   };
