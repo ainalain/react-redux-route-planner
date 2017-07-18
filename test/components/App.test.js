@@ -25,7 +25,6 @@ describe('App', () => {
 
   it('renders connected component', () => {
     const component = shallow(<App />);
-    console.log(component.debug());
     expect(component.find('Connect').length).toBe(1);
   });
 });
