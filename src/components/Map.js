@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
 import { apiAddress } from '../../config/apiAddress';
+import { getRoute } from '../actions/routeActions';
+import { formatRequest } from '../helpers/formatRequest';
+import getUserPosition from '../helpers/geolocation';
 import Marker from './Marker';
 import styles from './Map.scss';
 
@@ -14,13 +17,19 @@ export class Map extends React.Component {
     this.map = null;
     this.state = {
       markers: [],
-      limitExceed: false
+      limitExceed: false,
+      currentRoute: this.props.currentRoute,
+      savedRoutes: this.props.savedRoutes,
+      ajaxCallInProgress: true
     };
+
+    this.calculateRoute = this.calculateRoute.bind(this);
   }
 
-  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute }) {
     if (isScriptLoaded && !this.props.isScriptLoaded && google) { // load finished
       if (isScriptLoadSucceed) {
+        this.setState({ ajaxCallInProgress: false });
         this.map = new google.maps.Map(this.mapNode, {
           center: this.props.center,
           zoom: this.props.zoom
@@ -32,22 +41,16 @@ export class Map extends React.Component {
         this.props.onError();
       }
     }
+    if (currentRoute !== this.props.currentRoute) {
+      console.log('new route: ', currentRoute);
+      this.setState({ currentRoute: currentRoute }, this.drawRoute);
+    }
   }
 
   setCenter() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.map.setCenter(pos);
-      }, () => {
-        console.log('navigator disabled');
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      console.log('navigator disabled');
+    const userPosition = getUserPosition();
+    if (userPosition) {
+      this.map.setCenter(userPosition);
     }
   }
 
@@ -75,10 +78,34 @@ export class Map extends React.Component {
     this.setState({ limitExceed: true });
   }
 
-  renderLoading() {
-    if (!this.map) {
-      return (<div className={styles.loading}>Loading...</div>);
+  calculateRoute() {
+    console.log('this markers: ', this.state.markers);
+    let request = formatRequest(this.state.markers);
+    let params = {
+      google, request, map: this.map
     }
+    this.setState({ ajaxCallInProgress: true });
+    this.props.getRoute(params);
+  }
+
+  drawRoute() {
+    if (this.map && google) {
+      this.setState({ ajaxCallInProgress: false });
+      const directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(this.map);
+      directionsDisplay.setPanel(this.panel);
+      directionsDisplay.setDirections(this.state.currentRoute);
+    }
+  }
+
+  renderLoading() {
+    let loadinClass = this.state.ajaxCallInProgress ? styles.loading :
+      `${styles.loading} ${styles.hidden}`;
+      return (<div className={`${loadinClass}`}>
+        <img className={styles.image}
+          src={'../icons/loading.gif'}
+          alt={'loading spinner'} />
+        </div>);
   }
 
   render() {
@@ -88,7 +115,9 @@ export class Map extends React.Component {
         <p className={styles.instruction}>
         Click places you want to visit and then click the button to calculate the shortes route.
         </p>
-        <button className={styles.button}>Calculate</button>
+        <button className={styles.button} onClick={this.calculateRoute}>
+        Calculate
+        </button>
         <button className={styles.button}>Clear map</button>
       </header>
       <div className={styles.mapSection}>
@@ -97,8 +126,13 @@ export class Map extends React.Component {
           {this.renderMarkers()}
         </div>
         {this.renderLoading()}
+        <details className={styles.details}>
+          <summary>Route details</summary>
+          <div className={styles.panel}
+            ref={ node => { this.panel = node; }}></div>
+        </details>
         <div className={styles.history}
-        ref={node => { this.history = node; }}>
+          ref={node => { this.history = node; }}>
         History
         </div>
       </div>
@@ -121,11 +155,19 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps);
+  console.log('state: ', state);
   return {
-    state: state
+    currentRoute: state.currentRoute
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRoute: (params) => dispatch(getRoute(params))
   };
 };
 
 const AsyncMap = scriptLoader(apiAddress)(Map);
 
-export default connect(mapStateToProps)(AsyncMap);
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncMap);

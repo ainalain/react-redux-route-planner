@@ -10,9 +10,11 @@ class Marker extends React.Component {
 
   renderMarker() {
     let { map, google, position, index } = this.props;
-    let icon = 'http://localhost:8080/icons/road.svg';
+    let icon = 'http://localhost:8080/icons/road.svg',
+      title = 'Route point';
     if (index === 0) {
       icon = 'http://localhost:8080/icons/rocket.svg';
+
     }
     this.marker = new google.maps.Marker({ position, map, icon });
   }

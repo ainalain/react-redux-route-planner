@@ -1,0 +1,1 @@
+export const GET_ROUTE_SUCCESS = 'GET_ROUTE_SUCCESS';

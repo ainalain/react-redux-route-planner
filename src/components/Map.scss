@@ -24,6 +24,7 @@ flex-direction: column;
 }
 
 .mapSection {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -36,6 +37,25 @@ flex-direction: column;
   min-height: 350px;
 }
 
+.loading {
+  position: absolute;
+  top: 150px;
+}
+
+.hidden {
+  display: none;
+}
+
+.details {
+  width: 100%;
+  padding: 10px;
+}
+
+.panel {
+  width: 100%;
+  font-size: 1rem;
+}
+
 .history {
   width: 100%;
   padding: 20px 0;
@@ -45,12 +65,27 @@ flex-direction: column;
 @include tablet-landscape-up() {
   .mapSection {
     flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .panel {
+    width: 0;
+    font-size: 1.2rem;
   }
 
   .map {
     flex: 0.7;
     min-height: 450px;
   }
+
+  .loading {
+    left: 30%;
+  }
+
+  .details {
+    order: 3;
+  }
+
   .history {
     flex: 0.3;
   }
