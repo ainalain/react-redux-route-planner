@@ -8,6 +8,17 @@ class Marker extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps({ clear }) {
+    if (clear) {
+      console.log('marker: ', this.marker);
+      if (this.marker) {
+        console.log('set map to null');
+        this.marker.setMap(null);
+        this.marker = null;
+      }
+    }
+  }
+
   renderMarker() {
     let { map, google, position, index } = this.props;
     let icon = 'http://localhost:8080/icons/road.svg',
@@ -17,6 +28,13 @@ class Marker extends React.Component {
 
     }
     this.marker = new google.maps.Marker({ position, map, icon });
+  }
+
+  componentWillUnmount() {
+    if (this.marker) {
+      this.marker.setMap(null);
+      this.marker = null;
+    }
   }
 
   render() {
@@ -33,4 +51,10 @@ Marker.propTypes = {
   map: PropTypes.object
 };
 
-export default Marker;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    clear: state.clear
+  };
+};
+
+export default connect(mapStateToProps)(Marker);

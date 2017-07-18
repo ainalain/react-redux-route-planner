@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
 import { apiAddress } from '../../config/apiAddress';
 import { getRoute } from '../actions/routeActions';
+import { clearMap } from '../actions/mapActions';
 import { formatRequest } from '../helpers/formatRequest';
 import getUserPosition from '../helpers/geolocation';
 import Marker from './Marker';
@@ -24,6 +25,7 @@ export class Map extends React.Component {
     };
 
     this.calculateRoute = this.calculateRoute.bind(this);
+    this.updateHistory = this.updateHistory.bind(this);
   }
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute }) {
@@ -79,11 +81,10 @@ export class Map extends React.Component {
   }
 
   calculateRoute() {
-    console.log('this markers: ', this.state.markers);
     let request = formatRequest(this.state.markers);
     let params = {
       google, request, map: this.map
-    }
+    };
     this.setState({ ajaxCallInProgress: true });
     this.props.getRoute(params);
   }
@@ -91,10 +92,22 @@ export class Map extends React.Component {
   drawRoute() {
     if (this.map && google) {
       this.setState({ ajaxCallInProgress: false });
-      const directionsDisplay = new google.maps.DirectionsRenderer();
-      directionsDisplay.setMap(this.map);
-      directionsDisplay.setPanel(this.panel);
-      directionsDisplay.setDirections(this.state.currentRoute);
+      this.directionsDisplay = new google.maps.DirectionsRenderer();
+      this.directionsDisplay.setMap(this.map);
+      this.directionsDisplay.setPanel(this.panel);
+      this.directionsDisplay.setDirections(this.state.currentRoute);
+    }
+  }
+
+  updateHistory() {
+    if (Object.keys(this.state.currentRoute).length) {
+      let arr = [...this.state.savedRoutes, this.state.currentRoute];
+      this.setState({ markers: [] });
+      this.directionsDisplay.set('directions', null);
+      this.setState({ savedRoutes: arr }, this.props.clearMap);
+    } else {
+      let arr = [];
+      this.setState({ markers: arr }, this.props.clearMap);
     }
   }
 
@@ -118,7 +131,9 @@ export class Map extends React.Component {
         <button className={styles.button} onClick={this.calculateRoute}>
         Calculate
         </button>
-        <button className={styles.button}>Clear map</button>
+        <button className={styles.button} onClick={this.updateHistory}>
+        Clear map
+        </button>
       </header>
       <div className={styles.mapSection}>
         <div className={styles.map}
@@ -155,16 +170,16 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps);
-  console.log('state: ', state);
   return {
-    currentRoute: state.currentRoute
+    currentRoute: state.currentRoute,
+    savedRoutes: state.savedRoutes
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRoute: (params) => dispatch(getRoute(params))
+    getRoute: (params) => dispatch(getRoute(params)),
+    clearMap: () => dispatch(clearMap())
   };
 };
 
