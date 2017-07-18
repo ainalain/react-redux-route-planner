@@ -53,10 +53,9 @@ export class Map extends React.Component {
 
   populateMarkers(event) {
     let lat = event.latLng.lat(),
-      lng = event.latLng.lng(),
-      id = +new Date()/1000;
+      lng = event.latLng.lng();
     if (this.state.markers.length < 24) {
-      let arr = [{ lat, lng, id }, ...this.state.markers];
+      let arr = [...this.state.markers, { lat, lng }];
       this.setState({ markers: arr });
     } else {
       this.warnAboutMarkersLimit();
@@ -65,8 +64,8 @@ export class Map extends React.Component {
 
   renderMarkers() {
     if (this.map && this.state.markers.length) {
-      return this.state.markers.map(marker => (
-        <Marker position={marker} key={marker.id}
+      return this.state.markers.map((marker, index) => (
+        <Marker position={marker} key={index} index={index}
           map={this.map} google={google} />)
       );
     }
@@ -90,6 +89,7 @@ export class Map extends React.Component {
         Click places you want to visit and then click the button to calculate the shortes route.
         </p>
         <button className={styles.button}>Calculate</button>
+        <button className={styles.button}>Clear map</button>
       </header>
       <div className={styles.mapSection}>
         <div className={styles.map}
