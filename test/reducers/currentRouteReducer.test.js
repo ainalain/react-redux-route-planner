@@ -15,7 +15,6 @@ describe('Current route reducer', () => {
     };
     const action = actions.getRouteSuccess(result);
     const newState = reducer(initialState, action);
-    console.log(newState.testField);
     expect(newState.testField).toEqual('test route string');
   });
 });
