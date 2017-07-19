@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styles from './Marker.scss';
 
-class Marker extends React.Component {
+export class Marker extends React.Component {
   constructor(props) {
     super(props);
   }

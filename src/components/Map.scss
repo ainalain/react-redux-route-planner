@@ -49,11 +49,11 @@ flex-direction: column;
 .details {
   width: 100%;
   padding: 10px;
-}
 
-.panel {
-  width: 100%;
-  font-size: 1rem;
+  .panel {
+    width: 100%;
+    font-size: 1rem;
+  }
 }
 
 .history {
@@ -71,34 +71,23 @@ flex-direction: column;
   font-size: 1.2rem;
 }
 
-.item {
-  padding: 10px 0;
-  border-top: 1px solid #939393;
-
-  cursor: pointer;
-
-  .start, .end, .waypoints {
-    padding: 5px 0;
-  }
-
-  .note {
-    font-weight: 600;
-  }
-}
-
-.item:last-of-type {
-  border-bottom: 1px solid #939393;
-}
-
 @include tablet-landscape-up() {
   .mapSection {
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  .panel {
-    width: 0;
-    font-size: 1.2rem;
+  .details {
+    .panel {
+      width: 0;
+      font-size: 1.2rem;
+    }
+  }
+
+  .details[open] {
+    .panel {
+      width: 100%;
+    }
   }
 
   .map {

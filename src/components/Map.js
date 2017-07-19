@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import scriptLoader from 'react-async-script-loader';
 import { apiAddress } from '../../config/apiAddress';
-import { getRoute } from '../actions/routeActions';
+import { getCurrentRoute, updateCurrentRoute, updateHistory } from '../actions/routeActions';
 import { clearMap } from '../actions/mapActions';
 import { formatRequest, formatHistoryItems } from '../helpers/formatData';
 import getUserPosition from '../helpers/geolocation';
@@ -30,7 +30,7 @@ export class Map extends React.Component {
     this.updateRoute = this.updateRoute.bind(this);
   }
 
-  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute }) {
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute, savedRoutes }) {
     if (isScriptLoaded && !this.props.isScriptLoaded && google) { // load finished
       if (isScriptLoadSucceed) {
         this.setState({ ajaxCallInProgress: false });
@@ -46,8 +46,10 @@ export class Map extends React.Component {
       }
     }
     if (currentRoute !== this.props.currentRoute) {
-      console.log('new route: ', currentRoute);
       this.setState({ currentRoute: currentRoute }, this.drawRoute);
+    }
+    if (savedRoutes.length > this.state.savedRoutes.length) {
+      this.setState({ savedRoutes: savedRoutes });
     }
   }
 
@@ -88,7 +90,7 @@ export class Map extends React.Component {
       google, request, map: this.map
     };
     this.setState({ ajaxCallInProgress: true });
-    this.props.getRoute(params);
+    this.props.getCurrentRoute(params);
   }
 
   drawRoute() {
@@ -104,15 +106,14 @@ export class Map extends React.Component {
   updateRoute(event) {
     let currentIndex = event.currentTarget.dataset.index;
     let newRoute = this.state.savedRoutes[currentIndex];
-    this.setState({ currentRoute: newRoute }, this.drawRoute);
+    this.props.updateCurrentRoute(newRoute);
   }
 
   updateHistory() {
     if (Object.keys(this.state.currentRoute).length) {
-      let arr = [...this.state.savedRoutes, this.state.currentRoute];
-      this.setState({ markers: [] });
+      this.props.updateHistory(this.state.currentRoute);
+      this.setState({ markers: [] }, this.props.clearMap);
       this.directionsDisplay.set('directions', null);
-      this.setState({ savedRoutes: arr }, this.props.clearMap);
     } else {
       let arr = [];
       this.setState({ markers: arr }, this.props.clearMap);
@@ -201,7 +202,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRoute: (params) => dispatch(getRoute(params)),
+    getCurrentRoute: (params) => dispatch(getCurrentRoute(params)),
+    updateCurrentRoute: (route) => dispatch(updateCurrentRoute(route)),
+    updateHistory: (route) => dispatch(updateHistory(route)),
     clearMap: () => dispatch(clearMap())
   };
 };
