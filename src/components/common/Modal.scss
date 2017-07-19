@@ -1,0 +1,83 @@
+@import '../layout.scss';
+
+// The gray background
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  padding: 50px;
+
+  transition: all 0.4s;
+
+  opacity: 1;
+  background-color: rgba(0,0,0,0.6);
+
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop.hidden {
+  z-index: -1;
+
+  display: block;
+
+  opacity: 0;
+}
+
+// The modal "window"
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 400px;
+  min-height: 250px;
+  margin: 0 auto;
+  padding: 20px;
+
+  opacity: 1;
+  border-radius: 5px;
+  background-color: #fff;
+
+  font-size: 1.4rem;
+
+  justify-content: space-around;
+}
+
+.modal.hidden {
+	opacity: 0;
+}
+
+.title {
+  margin: 0 auto;
+
+  text-align: center;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.error {
+  text-align: justify;
+}
+
+.controls {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+@include phone-portrait-only() {
+  .modal {
+    font-size: 1.2rem;
+  }
+
+  .error {
+    text-align: center;
+  }
+};

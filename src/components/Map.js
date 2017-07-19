@@ -9,8 +9,10 @@ import { formatRequest, formatHistoryItems } from '../helpers/formatData';
 import getUserPosition from '../helpers/geolocation';
 import Marker from './Marker';
 import MapHeader from './map/MapHeader';
+import Modal from './common/Modal';
 import styles from './Map.scss';
 import ListItem from './common/ListItem';
+import * as errorTypes from '../errors/errorTypes';
 
 
 export class Map extends React.Component {
@@ -23,12 +25,14 @@ export class Map extends React.Component {
       limitExceed: false,
       currentRoute: this.props.currentRoute,
       savedRoutes: this.props.savedRoutes,
-      ajaxCallInProgress: true
+      ajaxCallInProgress: true,
+      error: ''
     };
 
     this.calculateRoute = this.calculateRoute.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.updateRoute = this.updateRoute.bind(this);
+    this.clearError = this.clearError.bind(this);
   }
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute, savedRoutes }) {
@@ -85,13 +89,33 @@ export class Map extends React.Component {
     this.setState({ limitExceed: true });
   }
 
+  renderModal() {
+    let hidden = true;
+    if (this.state.error.length) {
+      hidden = false;
+    }
+    return (
+      <Modal error={this.state.error} onClick={this.clearError} hidden={hidden} />
+    );
+  }
+
+  clearError() {
+    this.setState({ error: '' });
+  }
+
   calculateRoute() {
-    let request = formatRequest(this.state.markers);
-    let params = {
-      google, request, map: this.map
-    };
-    this.setState({ ajaxCallInProgress: true });
-    this.props.getCurrentRoute(params);
+    if (this.state.markers.length) {
+      let request = formatRequest(this.state.markers);
+      let params = {
+        google, request, map: this.map
+      };
+      this.setState({ ajaxCallInProgress: true });
+      this.props.getCurrentRoute(params);
+    } else {
+      let noMarkers = errorTypes.NO_MARKERS;
+      this.setState({ error: noMarkers });
+    }
+
   }
 
   drawRoute() {
@@ -167,6 +191,7 @@ export class Map extends React.Component {
         {this.renderHistory()}
         </div>
       </div>
+      {this.renderModal()}
      </section>
    );
  }
