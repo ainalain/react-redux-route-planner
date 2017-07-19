@@ -7,12 +7,10 @@ const getUserPosition = () => {
       };
       return userPosition;
     }, () => {
-      console.log('navigator disabled');
       return null;
     });
   } else {
     // Browser doesn't support Geolocation
-    console.log('navigator disabled');
     return null;
   }
 };

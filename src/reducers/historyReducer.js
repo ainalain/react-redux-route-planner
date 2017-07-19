@@ -16,4 +16,4 @@ const historyReducer = (state = initialState, action) => {
   }
 };
 
-export default historyReducer
+export default historyReducer;

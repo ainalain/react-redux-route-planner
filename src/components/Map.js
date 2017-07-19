@@ -7,9 +7,11 @@ import { getCurrentRoute, updateCurrentRoute, updateHistory } from '../actions/r
 import { clearMap } from '../actions/mapActions';
 import { formatRequest, formatHistoryItems } from '../helpers/formatData';
 import getUserPosition from '../helpers/geolocation';
+import History from './map/History';
 import Marker from './Marker';
 import MapHeader from './map/MapHeader';
 import Modal from './common/Modal';
+import Loading from '../icons/loading.gif';
 import styles from './Map.scss';
 import * as errorTypes from '../errors/errorTypes';
 
@@ -156,7 +158,7 @@ export class Map extends React.Component {
       `${styles.loading} ${styles.hidden}`;
       return (<div className={`${loadingClass}`}>
         <img className={styles.image}
-          src={'../icons/loading.gif'}
+          src={Loading}
           alt={'loading spinner'} />
         </div>);
   }
@@ -175,7 +177,7 @@ export class Map extends React.Component {
         <details className={styles.details}>
           <summary>Route details</summary>
           <div className={styles.panel}
-            ref={ node => { this.panel = node; }}></div>
+            ref={node => { this.panel = node; }}></div>
         </details>
         <div className={styles.history}
           ref={node => { this.history = node; }}>

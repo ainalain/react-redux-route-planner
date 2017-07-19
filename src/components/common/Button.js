@@ -11,7 +11,7 @@ const Button = ({ onClick, text, cssClass, icon }) => {
         null}
     </button>
   );
-}
+};
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,

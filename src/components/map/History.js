@@ -6,9 +6,9 @@ import styles from './History.scss';
 const History = ({ items, onItemClick }) => {
   return (
     <ul className={styles.list}>
-      {items.map((item, index) =>
+      {items.map((item, index) => (
         <ListItem key={index} index={index}
-        item={item} onClick={onItemClick} />
+        item={item} onClick={onItemClick} />)
       )}
     </ul>
   );
