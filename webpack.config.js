@@ -35,7 +35,7 @@ const cssLoaders = [
   }
 ];
 
-const imgLimit = process.env.NODE_ENV == 'development' ? 500 : 100;
+const imgLoader = process.env.NODE_ENV == 'development' ? 'url-loader' : 'file-loader';
 
 const publicPath = process.env.NODE_ENV == 'development' ? '/' : './';
 
@@ -76,10 +76,9 @@ module.exports = {
         },
         {
           test: /\.(png|jpg|svg|gif)$/i,
-            loader: 'url-loader',
+            loader: imgLoader,
             options: {
-              name: './icons/[name].[ext]',
-              limit: imgLimit
+              name: './icons/[name].[ext]'
             }
         },
         {

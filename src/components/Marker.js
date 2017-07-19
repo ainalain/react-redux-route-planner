@@ -21,10 +21,10 @@ export class Marker extends React.Component {
 
   renderMarker() {
     let { map, google, position, index } = this.props;
-    let icon = '../icons/road.svg',
+    let icon = './icons/road.svg',
       title = 'Route point';
     if (index === 0) {
-      icon = '../icons/start.svg';
+      icon = './icons/start.svg';
 
     }
     this.marker = new google.maps.Marker({ position, map, icon });
