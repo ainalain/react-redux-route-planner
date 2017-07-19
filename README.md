@@ -6,6 +6,11 @@ It uses Google Maps Javascript API.
 The result of the calculation is represented by a route drawn on the map and by a panel with saved history.
 When someone clicks on any item of this history list, the map will be updated.
 
+## Demo
+https://ainalain.github.io/React-redux-route-planner
+
+*Please note that the project is in progress, so there are bugs in demo.*
+
 ## Technologies used
 
 **Javascript**: ES2015
