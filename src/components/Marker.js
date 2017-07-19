@@ -22,7 +22,7 @@ export class Marker extends React.Component {
     let icon = 'http://localhost:8080/icons/road.svg',
       title = 'Route point';
     if (index === 0) {
-      icon = 'http://localhost:8080/icons/rocket.svg';
+      icon = 'http://localhost:8080/icons/start.svg';
 
     }
     this.marker = new google.maps.Marker({ position, map, icon });

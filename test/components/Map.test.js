@@ -19,14 +19,9 @@ describe('Map with shallow rendering', () => {
     expect(component.find('section').length).toBe(1);
   });
 
-  it('renders a header element', () => {
+  it('renders a MapHeader component', () => {
     const component = setup();
-    expect(component.find('header').length).toBe(1);
-  });
-
-  it('renders 2 buttons', () => {
-    const component = setup();
-    expect(component.find('button').length).toBe(2);
+    expect(component.find('MapHeader').length).toBe(1);
   });
 
   it('renders details element', () => {

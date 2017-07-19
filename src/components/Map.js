@@ -8,6 +8,7 @@ import { clearMap } from '../actions/mapActions';
 import { formatRequest, formatHistoryItems } from '../helpers/formatData';
 import getUserPosition from '../helpers/geolocation';
 import Marker from './Marker';
+import MapHeader from './map/MapHeader';
 import styles from './Map.scss';
 import ListItem from './common/ListItem';
 
@@ -147,17 +148,8 @@ export class Map extends React.Component {
   render() {
     return (
       <section className={styles.main}>
-        <header className={styles.sectionHeader}>
-        <p className={styles.instruction}>
-        Click places you want to visit and then click the button to calculate the shortes route.
-        </p>
-        <button className={styles.button} onClick={this.calculateRoute}>
-        Calculate
-        </button>
-        <button className={styles.button} onClick={this.updateHistory}>
-        Clear map
-        </button>
-      </header>
+        <MapHeader
+        calculateRoute={this.calculateRoute} updateHistory={this.updateHistory} />
       <div className={styles.mapSection}>
         <div className={styles.map}
           ref={node => { this.mapNode = node; }}>
