@@ -16,4 +16,13 @@ describe('Route actions', () => {
     const action = actions.getRouteSuccess(response);
     expect(action).toEqual(expectedAction);
   });
+
+  it('should create an UPDATE_HISTORY action', () => {
+    const expectedAction = {
+      type: types.UPDATE_HISTORY,
+      payload: {}
+    };
+    const action = actions.updateHistory({});
+    expect(action).toEqual(expectedAction);
+  });
 });
