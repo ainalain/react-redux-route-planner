@@ -5,7 +5,11 @@ import { mockGoogleAPI } from '../helpers/mockGoogleAPI';
 import { Map } from '../../src/components/Map';
 
 const setup = () => {
-  return shallow(<Map />);
+  const props = {
+    currentRoute: {},
+    savedRoutes: []
+  }
+  return shallow(<Map {...props} />);
 };
 
 describe('Map with shallow rendering', () => {
@@ -24,12 +28,19 @@ describe('Map with shallow rendering', () => {
     const component = setup();
     expect(component.find('button').length).toBe(2);
   });
-  it('renders a button', () => {
+
+  it('renders details element', () => {
+    const component = setup();
+    expect(component.find('details').length).toBe(1);
+  });
+
+  it('calls componentWillReceiveProps method when receives new props', () => {
     const spy = sinon.spy(Map.prototype, 'componentWillReceiveProps');
     const component = setup();
     global.google = mockGoogleAPI();
 
     component.setProps({ isScriptLoaded: true, isScriptLoadSucceed:true });
     expect(spy.calledOnce).toBe(true);
+    spy.restore();
   });
 });

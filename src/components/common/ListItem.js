@@ -20,7 +20,8 @@ const ListItem = ({ item, onClick, index }) => {
 
 ListItem.propTypes = {
   item: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  index: PropTypes.string.isRequired
 };
 
 export default ListItem;
