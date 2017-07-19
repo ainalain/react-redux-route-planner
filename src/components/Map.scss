@@ -41,11 +41,8 @@
     padding: 10px 0;
     font-size: 1.4rem;
     font-weight: 600;
+    text-align: left;
   }
-}
-
-.list {
-  font-size: 1.2rem;
 }
 
 @include tablet-landscape-up() {
@@ -82,5 +79,12 @@
 
   .history {
     flex: 0.3;
+    min-height: 450px;
+    margin-left: 10px;
+    border-left: 1px solid #939393;
+
+    .title {
+      text-align: center;
+    }
   }
 };

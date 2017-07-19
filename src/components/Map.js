@@ -11,7 +11,6 @@ import Marker from './Marker';
 import MapHeader from './map/MapHeader';
 import Modal from './common/Modal';
 import styles from './Map.scss';
-import ListItem from './common/ListItem';
 import * as errorTypes from '../errors/errorTypes';
 
 
@@ -148,14 +147,7 @@ export class Map extends React.Component {
   renderHistory() {
     if (this.state.savedRoutes.length) {
       let items = formatHistoryItems(this.state.savedRoutes);
-      return (
-        <ul className={styles.list}>
-          {items.map((item, index) =>
-            <ListItem key={index} index={index}
-            item={item} onClick={this.updateRoute} />
-          )}
-        </ul>
-      );
+      return (<History items={items} onItemClick={this.updateRoute} />);
     }
   }
 
