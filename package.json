@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --config webpack.config.prod.js",
-    "start": "webpack-dev-server",
+    "start": "NODE_ENV=development webpack-dev-server",
     "test": "mocha --colors --require tools/testSetup.js --recursive \"test/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },

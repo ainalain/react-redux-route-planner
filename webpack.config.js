@@ -35,6 +35,10 @@ const cssLoaders = [
   }
 ];
 
+const imgLimit = process.env.NODE_ENV == 'development' ? 500 : 100;
+
+const publicPath = process.env.NODE_ENV == 'development' ? '/' : './';
+
 let entry = process.env.NODE_ENV == 'development' ?
   [
     'webpack-dev-server/client?http://localhost:8080',
@@ -49,7 +53,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: publicPath
   },
   devServer: {
     historyApiFallback: true,
@@ -71,11 +75,11 @@ module.exports = {
             options: { presets: ['es2015', 'react'] }
         },
         {
-          test: /\.(png|jpg|svg)$/i,
+          test: /\.(png|jpg|svg|gif)$/i,
             loader: 'url-loader',
             options: {
-              name: 'images/[name].[ext]',
-              limit: 25000
+              name: './icons/[name].[ext]',
+              limit: imgLimit
             }
         },
         {
@@ -90,7 +94,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index.html',
+      inject: 'body'
     }),
     new ExtractTextPlugin({
       filename: 'bundle.css',
