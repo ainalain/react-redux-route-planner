@@ -172,13 +172,13 @@ export class Map extends React.Component {
         </div>
         {this.renderLoading()}
         <details className={styles.details}>
-          <summary>Route details</summary>
+          <summary className={styles.summary}>Route details</summary>
           <div className={styles.panel}
             ref={node => { this.panel = node; }}></div>
         </details>
         <div className={styles.history}
           ref={node => { this.history = node; }}>
-        <div className={styles.title}>History</div>
+        <div className={styles.title}>Routes history</div>
         {this.renderHistory()}
         </div>
       </div>

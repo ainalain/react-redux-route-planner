@@ -9,3 +9,10 @@
   font-weight: 600;
   text-align: center;
 }
+
+
+@include phone-portrait-only() {
+  .title {
+    font-size: 1.4rem;
+  }
+};

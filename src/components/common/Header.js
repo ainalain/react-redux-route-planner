@@ -7,7 +7,7 @@ const Header = () => {
     return (
       <header className={styles.header}>
         <h1 className={styles.title}>
-        Optimize your time: react route-planner base on Google Map API
+        Optimize your time: react route-planner based on Google Map API
         </h1>
       </header>
     );

@@ -1,7 +1,7 @@
 @import '../layout.scss';
 
 .item {
-  padding: 10px 0;
+  padding: 10px 0 10px 10px;
   border-top: 1px solid #939393;
 
   cursor: pointer;
@@ -17,4 +17,8 @@
 
 .item:last-of-type {
   border-bottom: 1px solid #939393;
+}
+
+.item:hover {
+  background-color: #C1E1A6;
 }

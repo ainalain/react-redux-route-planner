@@ -18,10 +18,25 @@
   width: 100%;
   padding: 10px;
 
+  outline-width: 0px;
+  outline-color: transparent;
+  box-shadow: none;
+
   .panel {
     width: 100%;
     font-size: 1rem;
   }
+}
+
+.summary {
+  cursor: pointer;
+  outline-width: 0px;
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+.summary:hover {
+  background-color: lighten(#FF9009, 30%);
 }
 
 .history {

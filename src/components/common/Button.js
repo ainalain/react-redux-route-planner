@@ -6,9 +6,12 @@ const Button = ({ onClick, text, cssClass, icon }) => {
   return (
     <button className={`${styles.button} ${styles[cssClass]}`}
       onClick={onClick}>
+      <span className={styles.flexHack}>
       {text}
-      {icon ? <div className={`${styles.icon} ${styles[icon]}`}></div> :
+      {icon ?
+        <span className={`${styles.icon} ${styles[icon]}`}></span> :
         null}
+      </span>
     </button>
   );
 };
