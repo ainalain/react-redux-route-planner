@@ -10,7 +10,12 @@ const initialState = [];
 const historyReducer = (state = initialState, action) => {
   switch(action.type) {
     case types.UPDATE_HISTORY:
-      return [...state, action.payload];
+    let route = action.payload;
+    if (state.findIndex(savedRoute => savedRoute.id === route.id) < 0) {
+      return [...state, route];
+    } else {
+      return state;
+    }
     default:
       return state;
   }

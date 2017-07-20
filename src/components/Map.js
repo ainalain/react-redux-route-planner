@@ -87,7 +87,7 @@ export class Map extends React.Component {
   }
 
   warnAboutMarkersLimit() {
-    this.setState({ limitExceed: true });
+    this.setState({ error: errorTypes.MARKERS_LIMIT_EXCEED });
   }
 
   renderModal() {
@@ -120,7 +120,9 @@ export class Map extends React.Component {
   }
 
   drawRoute() {
-    if (this.map && google) {
+    let condition = this.map && google &&
+      Object.keys(this.state.currentRoute).length;
+    if (condition) {
       this.setState({ ajaxCallInProgress: false });
       this.directionsDisplay = new google.maps.DirectionsRenderer();
       this.directionsDisplay.setMap(this.map);
@@ -140,6 +142,7 @@ export class Map extends React.Component {
       this.props.updateHistory(this.state.currentRoute);
       this.setState({ markers: [] }, this.props.clearMap);
       this.directionsDisplay.set('directions', null);
+      this.props.updateCurrentRoute({});
     } else {
       let arr = [];
       this.setState({ markers: arr }, this.props.clearMap);
