@@ -6,3 +6,4 @@ export const MAX_WAYPOINTS_EXCEEDED = '23 is the maximum of places allowed for t
 export const ZERO_RESULTS = 'The Google API couldn\'t find a route for these places.';
 export const OVER_QUERY_LIMIT = 'Requests limit exceeded. Please, try tomorrow.';
 export const REQUEST_DENIED = 'The request was denied. Please, try later.';
+export const GOOGLE_SCRIPT_NOT_LOADED = 'There was an error in loading Google Map API. Please, try later.';

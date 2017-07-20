@@ -47,9 +47,12 @@ export class Map extends React.Component {
         });
         this.map.addListener('click', this.populateMarkers.bind(this));
         this.setCenter();
+        this.directionsDisplay = new google.maps.DirectionsRenderer();
+        this.directionsDisplay.setMap(this.map);
+        this.directionsDisplay.setPanel(this.panel);
       }
       else  {
-        this.props.onError();
+        this.setState({ error: errorTypes.GOOGLE_SCRIPT_NOT_LOADED });
       }
     }
     if (currentRoute !== this.props.currentRoute) {
@@ -129,9 +132,6 @@ export class Map extends React.Component {
       Object.keys(this.state.currentRoute).length;
     if (condition) {
       this.setState({ ajaxCallInProgress: false });
-      this.directionsDisplay = new google.maps.DirectionsRenderer();
-      this.directionsDisplay.setMap(this.map);
-      this.directionsDisplay.setPanel(this.panel);
       this.directionsDisplay.setDirections(this.state.currentRoute);
     }
   }
@@ -139,7 +139,10 @@ export class Map extends React.Component {
   updateRoute(event) {
     let currentIndex = event.currentTarget.dataset.index;
     let newRoute = this.state.savedRoutes[currentIndex];
-    this.props.updateCurrentRoute(newRoute);
+    let cond = this.state.currentRoute.id !== newRoute.id;
+    if (cond) {
+      this.props.updateCurrentRoute(newRoute);
+    }
   }
 
   updateHistory() {
