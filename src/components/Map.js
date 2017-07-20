@@ -11,7 +11,7 @@ import History from './map/History';
 import Marker from './Marker';
 import MapHeader from './map/MapHeader';
 import Modal from './common/Modal';
-import Loading from '../icons/loading.gif';
+import Loading from './map/Loading';
 import styles from './Map.scss';
 import * as errorTypes from '../errors/errorTypes';
 
@@ -157,13 +157,7 @@ export class Map extends React.Component {
   }
 
   renderLoading() {
-    let loadingClass = this.state.ajaxCallInProgress ? styles.loading :
-      `${styles.loading} ${styles.hidden}`;
-      return (<div className={`${loadingClass}`}>
-        <img className={styles.image}
-          src={Loading}
-          alt={'loading spinner'} />
-        </div>);
+    return (<Loading ajaxCallInProgress={this.state.ajaxCallInProgress} />);
   }
 
   render() {
