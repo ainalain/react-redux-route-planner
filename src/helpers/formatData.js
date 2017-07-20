@@ -14,6 +14,7 @@ export const formatRequest = (markers) => {
     waypts.push(point);
   });
   request.waypoints = waypts;
+  request.language = 'en';
   return request;
 };
 

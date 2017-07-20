@@ -4,6 +4,10 @@ export const getRouteSuccess = (result) => {
   return { type: types.GET_ROUTE_SUCCESS, result };
 };
 
+export const getRouteError = ({ status, message}) => {
+  return { type: types.GET_ROUTE_ERROR, payload: {status, message}};
+};
+
 /*
  * async action: get route from Google Directions Service
  */
@@ -14,8 +18,13 @@ export const getCurrentRoute = (params) => {
     directionsService.route(params.request, (response, status) => {
       if (status == 'OK') {
         dispatch(getRouteSuccess(response));
+      } else {
+        let message = '';
+        if (response && response.error_message) {
+          message = response.error_message;
+        }
+        dispatch(getRouteError({status, message}));
       }
-      //TODO: add error handling
     });
   };
 };

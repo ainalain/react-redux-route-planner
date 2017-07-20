@@ -9,7 +9,7 @@ const Modal = ({ error, onClick, hidden }) => {
   return (
     <div className={`${backdropClass}`}>
       <div className={`${modalClass}`}>
-        <h2 className={styles.title}>Oops, this is an error!</h2>
+        <h2 className={styles.title}>Oops, there is an error!</h2>
         <div className={styles.error}>
           {error}
         </div>

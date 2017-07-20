@@ -27,7 +27,7 @@ export class Map extends React.Component {
       currentRoute: this.props.currentRoute,
       savedRoutes: this.props.savedRoutes,
       ajaxCallInProgress: true,
-      error: ''
+      error: this.props.error
     };
 
     this.calculateRoute = this.calculateRoute.bind(this);
@@ -36,7 +36,8 @@ export class Map extends React.Component {
     this.clearError = this.clearError.bind(this);
   }
 
-  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed, currentRoute, savedRoutes }) {
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed,
+      currentRoute, savedRoutes, error }) {
     if (isScriptLoaded && !this.props.isScriptLoaded && google) { // load finished
       if (isScriptLoadSucceed) {
         this.setState({ ajaxCallInProgress: false });
@@ -56,6 +57,10 @@ export class Map extends React.Component {
     }
     if (savedRoutes.length > this.state.savedRoutes.length) {
       this.setState({ savedRoutes: savedRoutes });
+    }
+    if (error !== this.props.error) {
+      this.setState({ error: error });
+      this.setState({ ajaxCallInProgress: false }, this.clearMap);
     }
   }
 
@@ -87,7 +92,7 @@ export class Map extends React.Component {
   }
 
   warnAboutMarkersLimit() {
-    this.setState({ error: errorTypes.MARKERS_LIMIT_EXCEED });
+    this.setState({ error: errorTypes.MAX_WAYPOINTS_EXCEEDED });
   }
 
   renderModal() {
@@ -204,7 +209,8 @@ Map.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentRoute: state.currentRoute,
-    savedRoutes: state.savedRoutes
+    savedRoutes: state.savedRoutes,
+    error: state.error
   };
 };
 
