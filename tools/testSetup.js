@@ -13,6 +13,14 @@ hook({
   preprocessCss: ( data, file ) => sass.renderSync({ file }).css
 });
 
+//add images extensions right comprehension to mocha tests
+const fs = require('fs');
+const exts = ['.svg', '.gif', '.png'];
+exts.forEach(extension => {
+  require.extensions[extension] = (module, filename) => {
+    module.exports = fs.readFileSync(filename, 'utf8');
+  };
+});
 
 global.sinon = sinon;
 
