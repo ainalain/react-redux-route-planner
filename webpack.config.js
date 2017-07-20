@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const srcPath = path.join(__dirname, 'src');
 const autoprefixer = require('autoprefixer');
 const iconsPath = path.join(srcPath, 'icons');
@@ -95,6 +96,28 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html',
       inject: 'body'
+    }),
+    new FaviconsWebpackPlugin({
+      logo: './favicon.png',
+      prefix: 'icons-[hash]/',
+      // Emit all stats of the generated icons
+      emitStats: false,
+      // The name of the json containing all favicon information
+      statsFilename: 'iconstats-[hash].json',
+      persistentCache: true,
+      inject: true,
+      icons: {
+        android: false,
+        appleIcon: false,
+        appleStartup: false,
+        coast: false,
+        favicons: true,
+        firefox: true,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false
+      }
     }),
     new ExtractTextPlugin({
       filename: 'bundle.css',
