@@ -1,5 +1,5 @@
 # React-redux-route-planner
-*This is a homework test task, in progress*
+*This is a homework task, finished in 5 days.*
 
 A react-redux app that calculates the best route (by time) for selected places.
 It uses Google Maps Javascript API.
@@ -9,7 +9,7 @@ When someone clicks on any item of this history list, the map will be updated.
 ## Demo
 https://ainalain.github.io/react-redux-route-planner
 
-*Please note that the project is in progress, so there are bugs in demo.*
+*Please note that the project was written in 5 days, so there is room for improvement.*
 
 ## Technologies used
 
@@ -36,3 +36,5 @@ The app will automatically reload if you change any of the source files.
 ## Testing
 
 Run `npm test` to execute the unit tests.
+
+Run `npm run report` to see tests coverage.
