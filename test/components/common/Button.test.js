@@ -7,7 +7,7 @@ describe('Button with shallow rendering', () => {
   let component;
   beforeEach(() => {
     const props = {
-      test: 'test',
+      text: 'test',
       onClick: () => {},
       cssClass: 'testClass'
     };

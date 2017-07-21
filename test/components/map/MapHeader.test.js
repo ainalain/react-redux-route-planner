@@ -8,7 +8,8 @@ describe('MapHeader with shallow rendering', () => {
   beforeEach(() => {
     const props = {
       calculateRoute: () => {},
-      updateHistory: () => {}
+      updateHistory: () => {},
+      onTravelModeClick: () => {}
     };
     component = shallow(<MapHeader {...props} /> );
   });

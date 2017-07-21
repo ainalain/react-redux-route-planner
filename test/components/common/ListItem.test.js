@@ -8,7 +8,7 @@ describe('ListItem with shallow rendering', () => {
     const props = {
       item: {},
       onClick: () => {},
-      index: '0'
+      index: 0
     };
     const component = shallow(<ListItem {...props} />);
     expect(component.find('li').length).toBe(1);

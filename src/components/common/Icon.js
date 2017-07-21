@@ -15,7 +15,7 @@ const Icon = ({ width = 32 , height = 32, glyph, onClick, mode, activeMode }) =>
 };
 
 Icon.propTypes = {
-  glyph: PropTypes.object.isRequired,
+  glyph: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   mode: PropTypes.string.isRequired,
   width: PropTypes.number,
