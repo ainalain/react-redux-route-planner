@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
 import Icon from '../common/Icon';
-import Bike from '../../icons/bike.svg';
-import Car from '../../icons/car.svg';
-import Walk from '../../icons/walk.svg';
+import Bike from '../../assets/icons/bike.svg';
+import Car from '../../assets/icons/car.svg';
+import Walk from '../../assets/icons/walk.svg';
 import styles from './MapHeader.scss';
 
 const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {

@@ -77,19 +77,21 @@ module.exports = {
             options: { presets: ['es2015', 'react'] }
         },
         {
-          test: /\.(png|jpg|gif)$/i,
+          test: /\.(png|jpg|svg|gif)$/i,
+          exclude: path.join(srcPath, 'assets', 'icons'),
+          include: [path.resolve(__dirname, './src/assets/images')],
             loader: imgLoader,
             options: {
-              name: './icons/[name].[ext]'
+              name: './assets/images/[name].[ext]'
             }
         },
         {test:  /\.svg$/,
-          include: path.join(srcPath, 'icons'),
+          include: path.join(srcPath, 'assets', 'icons'),
           loaders: [
             { loader: 'external-svg-sprite-loader',
               options: {
                 iconName: '[name]-[hash:base64:10]',
-                name: './icons/sprite.svg'
+                name: './assets/icons/sprite.svg'
               }
             },
             { loader: 'svgo-loader?' + JSON.stringify({

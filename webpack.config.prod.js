@@ -22,7 +22,8 @@ module.exports.plugins.push(
     sourceMap: true
   }),
   new CleanWebpackPlugin([
-    'bundle.css', 'bundle.js', 'bundle.css.map', 'bundle.js.map'], {
+    'bundle.css', 'bundle.js', 'bundle.css.map', 'bundle.js.map',
+    'assets/icons/sprite.svg'], {
     root: __dirname + '/dist',
     verbose: true,
     dry: false

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Start from '../icons/start.svg';
-import Road from '../icons/road.svg';
+import Start from '../assets/images/start.svg';
+import Road from '../assets/images/road.svg';
 import styles from './Marker.scss';
 
 export class Marker extends React.Component {
@@ -21,10 +21,10 @@ export class Marker extends React.Component {
 
   renderMarker() {
     let { map, google, position, index } = this.props;
-    let icon = './icons/road.svg',
+    let icon = './assets/images/road.svg',
       title = 'Route point';
     if (index === 0) {
-      icon = './icons/start.svg';
+      icon = './assets/images/start.svg';
 
     }
     this.marker = new google.maps.Marker({ position, map, icon });

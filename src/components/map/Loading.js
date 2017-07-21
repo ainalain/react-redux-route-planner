@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoadingGif from '../../icons/loading.gif';
+import LoadingGif from '../../assets/images/loading.gif';
 import styles from './Loading.scss';
 
 const Loading = ({ ajaxCallInProgress }) => {
