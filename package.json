@@ -7,7 +7,9 @@
     "build": "webpack -p --config webpack.config.prod.js",
     "start": "NODE_ENV=development webpack-dev-server",
     "test": "mocha --colors --require tools/testSetup.js --recursive \"test/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "cleanup": "rimraf .nyc_output coverage",
+    "report": "nyc --reporter=lcov --reporter=text npm test"
   },
   "repository": {
     "type": "git",
@@ -45,9 +47,11 @@
     "jsdom-global": "3.0.2",
     "mocha": "^3.4.2",
     "node-sass": "^4.5.3",
+    "nyc": "^11.0.3",
     "postcss-loader": "^2.0.6",
     "prop-types": "^15.5.10",
     "react-test-renderer": "^15.5.4",
+    "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
     "sinon": "^2.3.2",
     "style-loader": "^0.18.2",
