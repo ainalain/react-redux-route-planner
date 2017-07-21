@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../common/Button';
 import styles from './MapHeader.scss';
 
-const MapHeader = ({ calculateRoute, updateHistory }) => {
+const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
   return (
     <header className={styles.header}>
     <p className={styles.instruction}>
@@ -11,7 +11,7 @@ const MapHeader = ({ calculateRoute, updateHistory }) => {
     </p>
     <div className={styles.controls}>
       <Button onClick={calculateRoute} text='Route'
-        cssClass='calculate' icon='calculate' />
+        cssClass='calculate' icon='calculate' disabled={calcDisabled} />
       <Button onClick={updateHistory} text='Clear map'
         cssClass='clear' icon='clear' />
     </div>
@@ -21,7 +21,8 @@ const MapHeader = ({ calculateRoute, updateHistory }) => {
 
 MapHeader.propTypes = {
   calculateRoute: PropTypes.func.isRequired,
-  updateHistory: PropTypes.func.isRequired
+  updateHistory: PropTypes.func.isRequired,
+  calcDisabled: PropTypes.bool
 };
 
 export default MapHeader;

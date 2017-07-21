@@ -172,9 +172,10 @@ export class Map extends React.Component {
   }
 
   render() {
+    let disabled = Object.keys(this.state.currentRoute).length > 0;
     return (
       <section className={styles.main}>
-        <MapHeader
+        <MapHeader calcDisabled={disabled}
         calculateRoute={this.calculateRoute} updateHistory={this.updateHistory} />
       <div className={styles.mapSection}>
         <div className={styles.map}

@@ -37,6 +37,14 @@
   background-color: #FF9009;
 }
 
+.button.calculate:disabled {
+  cursor: not-allowed;
+
+  color: #000;
+  border-color: darken(#FF9009, 20%);
+  background-color: darken(#FF9009, 20%);
+}
+
 .button.clear {
   border-color: #C1E1A6;
   background-color: #C1E1A6;
