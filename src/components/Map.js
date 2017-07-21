@@ -41,17 +41,8 @@ export class Map extends React.Component {
     if (isScriptLoaded && !this.props.isScriptLoaded && google) { // load finished
       if (isScriptLoadSucceed) {
         this.setState({ ajaxCallInProgress: false });
-        this.map = new google.maps.Map(this.mapNode, {
-          center: this.props.center,
-          zoom: this.props.zoom
-        });
-        this.map.addListener('click', this.populateMarkers.bind(this));
-        this.setCenter();
-        this.directionsDisplay = new google.maps.DirectionsRenderer();
-        this.directionsDisplay.setMap(this.map);
-        this.directionsDisplay.setPanel(this.panel);
-      }
-      else  {
+        this.initGoogleMap();
+      } else  {
         this.setState({ error: errorTypes.GOOGLE_SCRIPT_NOT_LOADED });
       }
     }
@@ -65,6 +56,18 @@ export class Map extends React.Component {
       this.setState({ error: error });
       this.setState({ ajaxCallInProgress: false }, this.clearMap);
     }
+  }
+
+  initGoogleMap() {
+    this.map = new google.maps.Map(this.mapNode, {
+      center: this.props.center,
+      zoom: this.props.zoom
+    });
+    this.map.addListener('click', this.populateMarkers.bind(this));
+    this.setCenter();
+    this.directionsDisplay = new google.maps.DirectionsRenderer();
+    this.directionsDisplay.setMap(this.map);
+    this.directionsDisplay.setPanel(this.panel);
   }
 
   setCenter() {
