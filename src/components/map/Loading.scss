@@ -8,3 +8,9 @@
 .hidden {
   display: none;
 }
+
+@include tablet-landscape-up() {
+  .loading {
+    left: 33%;
+  }
+}

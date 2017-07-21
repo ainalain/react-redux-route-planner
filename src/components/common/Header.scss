@@ -2,9 +2,12 @@
 
 .header {
   width: 100%;
+  text-align: center;
 }
 
 .title {
+  margin: 0 auto;
+  max-width: 600px;
   font-size: 1.8rem;
   font-weight: 600;
   text-align: center;
@@ -14,5 +17,16 @@
 @include phone-portrait-only() {
   .title {
     font-size: 1.4rem;
+  }
+};
+
+@include tablet-landscape-up() {
+  .header {
+    text-align: left;
+  }
+
+  .title {
+    max-width: 100%;
+    text-align: left;
   }
 };

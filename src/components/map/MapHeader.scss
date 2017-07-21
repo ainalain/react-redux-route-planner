@@ -1,9 +1,11 @@
 @import '../layout.scss';
 
 .header {
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
+
+  padding: 20px 0;
+
   text-align: justify;
 }
 
@@ -14,13 +16,17 @@
 .controls {
   display: flex;
   flex-direction: row;
-  align-items: center;
+
   margin-right: auto;
+
+  align-items: center;
 }
 
 .group {
   display: flex;
+
   width: 120px;
+
   justify-content: space-between;
 }
 
