@@ -7,7 +7,8 @@ import { Map } from '../../src/components/Map';
 const setup = () => {
   const props = {
     currentRoute: {},
-    savedRoutes: []
+    savedRoutes: [],
+    error: ''
   }
   return shallow(<Map {...props} />);
 };

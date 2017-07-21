@@ -3,19 +3,15 @@ const mockAddListener = () => { console.log('fake add listener'); };
 export const mockGoogleAPI = () => {
   return {
     maps: {
-      Map: function() {
+      Map: () => ({ addListener: mockAddListener }),
+      Marker: () => ({}),
+      DirectionsService: () => ({
+        route: () => ({})
+      }),
+      DirectionsRenderer: function() {
         return {
-          addListener: mockAddListener
-        };
-      },
-      Marker: function() {
-        return {};
-      },
-      DirectionsService: function() {
-        return {
-          route: function() {
-            return {};
-          }
+          setMap: () => ({}),
+          setPanel: () => ({})
         };
       }
     }
