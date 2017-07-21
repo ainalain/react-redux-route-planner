@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const SvgStorePlugin = require('external-svg-sprite-loader/lib/SvgStorePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
@@ -76,11 +77,30 @@ module.exports = {
             options: { presets: ['es2015', 'react'] }
         },
         {
-          test: /\.(png|jpg|svg|gif)$/i,
+          test: /\.(png|jpg|gif)$/i,
             loader: imgLoader,
             options: {
               name: './icons/[name].[ext]'
             }
+        },
+        {test:  /\.svg$/,
+          include: path.join(srcPath, 'icons'),
+          loaders: [
+            { loader: 'external-svg-sprite-loader',
+              options: {
+                iconName: '[name]-[hash:base64:10]',
+                name: './icons/sprite.svg'
+              }
+            },
+            { loader: 'svgo-loader?' + JSON.stringify({
+                plugins: [
+                  { removeTitle: true },
+                  { convertPathData: false },
+                  { removeUselessStrokeAndFill: true }
+                  ]
+                })
+            }
+            ],
         },
         {
           test: /\.scss$/,
@@ -92,6 +112,7 @@ module.exports = {
       ]
    },
   plugins: [
+    new SvgStorePlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html',

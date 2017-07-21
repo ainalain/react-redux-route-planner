@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../common/Button';
+import Icon from '../common/Icon';
+import Bike from '../../icons/bike.svg';
+import Car from '../../icons/car.svg';
+import Walk from '../../icons/walk.svg';
 import styles from './MapHeader.scss';
 
 const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
@@ -14,6 +18,11 @@ const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
         cssClass='calculate' icon='calculate' disabled={calcDisabled} />
       <Button onClick={updateHistory} text='Clear map'
         cssClass='clear' icon='clear' />
+      <div className={styles.group}>
+        <Icon glyph={Bike} />
+        <Icon glyph={Walk} />
+        <Icon glyph={Car} />
+      </div>
     </div>
   </header>
   );
