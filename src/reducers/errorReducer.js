@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes';
+import * as errorTypes from '../errors/errorTypes';
 
 const initialState = '';
 
@@ -8,7 +9,7 @@ const errorReducer = (state = initialState, action) => {
       /* eslint-disable no-console */
       console.log('error message: ', action.payload.message);
       /* eslint-disable no-console */
-      return action.payload.status;
+      return errorTypes[action.payload.status];
     default:
       return state;
   }
