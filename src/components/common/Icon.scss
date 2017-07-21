@@ -4,3 +4,12 @@
   width: 32px;
   height: 32px;
 }
+
+.icon {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon:hover {
+  transform: scale(1.3);
+}

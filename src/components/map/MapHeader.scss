@@ -14,7 +14,14 @@
 .controls {
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-right: auto;
+}
+
+.group {
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
 }
 
 @include phone-portrait-only() {
@@ -24,5 +31,15 @@
 
   .controls {
     flex-direction: column;
+  }
+
+  .group {
+    padding-top: 15px;
+  }
+};
+
+@include tablet-portrait-up() {
+  .group {
+    margin-left: 15px;
   }
 };
