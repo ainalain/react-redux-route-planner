@@ -20,4 +20,8 @@ describe('MapHeader with shallow rendering', () => {
   it('renders 2 Button components', () => {
     expect(component.find('Button').length).toBe(2);
   });
+
+  it('renders 3 Icon components', () => {
+    expect(component.find('Icon').length).toBe(3);
+  });
 });

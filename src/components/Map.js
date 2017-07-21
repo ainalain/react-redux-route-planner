@@ -27,13 +27,15 @@ export class Map extends React.Component {
       currentRoute: this.props.currentRoute,
       savedRoutes: this.props.savedRoutes,
       ajaxCallInProgress: true,
-      error: this.props.error
+      error: this.props.error,
+      travelMode: 'DRIVING'
     };
 
     this.calculateRoute = this.calculateRoute.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.updateRoute = this.updateRoute.bind(this);
     this.clearError = this.clearError.bind(this);
+    this.changeTravelMode = this.changeTravelMode.bind(this);
   }
 
   componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed,
@@ -115,9 +117,14 @@ export class Map extends React.Component {
     this.setState({ error: '' });
   }
 
+  changeTravelMode(event) {
+    let mode = event.currentTarget.dataset.mode.toUpperCase();
+    this.setState({ travelMode: mode });
+  }
+
   calculateRoute() {
     if (this.state.markers.length) {
-      let request = formatRequest(this.state.markers);
+      let request = formatRequest(this.state.markers, this.state.travelMode);
       let params = {
         google, request, map: this.map
       };
@@ -173,9 +180,11 @@ export class Map extends React.Component {
 
   render() {
     let disabled = Object.keys(this.state.currentRoute).length > 0;
+    let mode = this.state.travelMode.toLowerCase();
     return (
       <section className={styles.main}>
         <MapHeader calcDisabled={disabled}
+        onTravelModeClick={this.changeTravelMode} activeMode={mode}
         calculateRoute={this.calculateRoute} updateHistory={this.updateHistory} />
       <div className={styles.mapSection}>
         <div className={styles.map}

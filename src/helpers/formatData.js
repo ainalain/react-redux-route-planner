@@ -1,8 +1,9 @@
-export const formatRequest = (markers) => {
+export const formatRequest = (markers, mode) => {
   let length = markers.length;
   let request = {
-    travelMode: 'DRIVING'
+    travelMode: mode
   };
+
   request.origin = markers[0];
   request.destination = markers[length - 1];
   let waypts = [];

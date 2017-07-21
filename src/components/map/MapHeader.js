@@ -7,7 +7,8 @@ import Car from '../../assets/icons/car.svg';
 import Walk from '../../assets/icons/walk.svg';
 import styles from './MapHeader.scss';
 
-const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
+const MapHeader = ({ calculateRoute, updateHistory,
+    calcDisabled, onTravelModeClick, activeMode }) => {
   return (
     <header className={styles.header}>
     <p className={styles.instruction}>
@@ -19,9 +20,9 @@ const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
       <Button onClick={updateHistory} text='Clear map'
         cssClass='clear' icon='clear' />
       <div className={styles.group}>
-        <Icon glyph={Bike} />
-        <Icon glyph={Walk} />
-        <Icon glyph={Car} />
+        <Icon glyph={Bike} onClick={onTravelModeClick} mode='bicycling' activeMode={activeMode} />
+        <Icon glyph={Walk} onClick={onTravelModeClick} mode='walking' activeMode={activeMode} />
+        <Icon glyph={Car} onClick={onTravelModeClick} mode='driving' activeMode={activeMode} />
       </div>
     </div>
   </header>
@@ -31,6 +32,7 @@ const MapHeader = ({ calculateRoute, updateHistory, calcDisabled }) => {
 MapHeader.propTypes = {
   calculateRoute: PropTypes.func.isRequired,
   updateHistory: PropTypes.func.isRequired,
+  onTravelModeClick: PropTypes.func.isRequired,
   calcDisabled: PropTypes.bool
 };
 
