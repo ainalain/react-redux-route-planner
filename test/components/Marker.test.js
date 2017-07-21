@@ -1,7 +1,7 @@
 import expect from 'expect';
 import React from 'react';
 import { shallow  } from 'enzyme';
-import { mockGoogleAPI } from '../helpers/mockGoogleAPI';
+import mockGoogleAPI from '../helpers/mockGoogleAPI';
 import { Marker } from '../../src/components/Marker';
 import styles from '../../src/components/Marker.scss';
 

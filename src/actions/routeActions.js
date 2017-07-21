@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 
 export const getRouteSuccess = (result) => {
-  return { type: types.GET_ROUTE_SUCCESS, result };
+  return { type: types.GET_ROUTE_SUCCESS, payload: result };
 };
 
 export const getRouteError = ({ status, message}) => {

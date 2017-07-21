@@ -24,7 +24,7 @@ const initialState = {};
 const currentRouteReducer = (state = initialState, action) => {
   switch(action.type) {
     case types.GET_ROUTE_SUCCESS:
-      let route = action.result;
+      let route = action.payload;
       return formatCurrentRoute(route);
     default:
       return state;
